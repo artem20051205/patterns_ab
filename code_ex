@@ -1,0 +1,68 @@
+# Паттерн Одиночка (Singleton)
+class Singleton:
+    _instance = None
+
+    def __new__(cls):
+        if cls._instance is None:
+            cls._instance = super(Singleton, cls).__new__(cls)
+        return cls._instance
+
+# Паттерн Фабричний метод (Factory Method)
+class Product:
+    def create(self):
+        pass
+
+class ConcreteProduct(Product):
+    def create(self):
+        return "Створено конкретний продукт"
+
+class Creator:
+    def factory_method(self):
+        return Product()
+
+class ConcreteCreator(Creator):
+    def factory_method(self):
+        return ConcreteProduct()
+
+# Паттерн Спостерігач (Observer)
+class Observer:
+    def update(self, message):
+        pass
+
+class ConcreteObserver(Observer):
+    def update(self, message):
+        print(f"Отримано повідомлення: {message}")
+
+class Subject:
+    def __init__(self):
+        self._observers = []
+
+    def add_observer(self, observer):
+        self._observers.append(observer)
+
+    def remove_observer(self, observer):
+        self._observers.remove(observer)
+
+    def notify_observers(self, message):
+        for observer in self._observers:
+            observer.update(message)
+
+# Взаємодія між паттернами
+if __name__ == "__main__":
+    # Використання паттерну Одиночка
+    singleton_instance = Singleton()
+
+    # Використання паттерну Фабричний метод
+    creator = ConcreteCreator()
+    product = creator.factory_method()
+    print(product.create())
+
+    # Використання паттерну Спостерігач
+    subject = Subject()
+    observer1 = ConcreteObserver()
+    observer2 = ConcreteObserver()
+
+    subject.add_observer(observer1)
+    subject.add_observer(observer2)
+
+    subject.notify_observers("Нове повідомлення")
