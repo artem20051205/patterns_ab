@@ -1,0 +1,20 @@
+class Product:
+    def create(self):
+        pass
+
+class ConcreteProduct(Product):
+    def create(self):
+        return "Створено конкретний продукт"
+
+class Creator:
+    def factory_method(self):
+        return Product()
+
+class ConcreteCreator(Creator):
+    def factory_method(self):
+        return ConcreteProduct()
+
+# Використання паттерну Фабричний метод
+creator = ConcreteCreator()
+product = creator.factory_method()
+print(product.create())  # "Створено конкретний продукт"
